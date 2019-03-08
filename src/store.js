@@ -39,7 +39,7 @@ export default new Vuex.Store({
       state.rulesConf = rules;
     },
     addRunnableToRule(state, rule, runnable) {
-      const ruleToUpdate = state.rulesConf.filter(r => (r.name = rule.name))[0];
+      const ruleToUpdate = state.rulesConf.filter(r => r.name === rule.name)[0];
       ruleToUpdate.runnables.push(runnable.name);
     },
   },

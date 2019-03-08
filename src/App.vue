@@ -155,12 +155,11 @@ export default {
       return this.$store.state.optionsConf;
     },
     optionsAvailable() {
-      return this.optionsList.filter(option => {
-        return (
+      return this.optionsList.filter(
+        option =>
           this.optionsConf.length === 0 ||
           !this.optionsConf.some(o => o === option)
-        );
-      });
+      );
     },
     configFile() {
       return this.$store.state.configFile;
