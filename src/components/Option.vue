@@ -1,5 +1,5 @@
 <template>
-  <v-switch v-model="item.value" :label="`${item.name}: ${item.value}`" @change="updateOptions"></v-switch>
+  <v-switch v-model="item.value" :label="`${item.name}`" @change="updateOptions"></v-switch>
 </template>
 
 <script>

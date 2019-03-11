@@ -3,11 +3,11 @@
     <v-app id="vue-config-rules">
       <v-container grid-list-md text-xs-center>
         <v-layout row wrap>
-          <v-flex xs6>
+          <v-flex xs4>
             <v-layout row wrap>
               <v-flex>
                 <!-- Options -->
-                <v-card>
+                <v-card color="light-green">
                   <v-card-title primary-title>
                     <div>
                       <h3 class="headline mb-0">Options</h3>
@@ -23,16 +23,43 @@
                   </v-card-title>
                 </v-card>
               </v-flex>
+
+              <!-- Config File -->
               <v-flex>
-                <Rule v-for="(rule, i) in rulesList" :key="`rule-${i}`" :item="rule"/>
+                <v-card color="yellow">
+                  <v-card-title primary-title>
+                    <div>
+                      <h3 class="headline mb-0">
+                        <vue-markdown>`rules.yml` Overview</vue-markdown>
+                      </h3>
+                      <div>
+                        <v-btn color="warning" @click="generateFile">Generate File</v-btn>
+                        <vue-markdown :source="configFile"></vue-markdown>
+                      </div>
+                    </div>
+                  </v-card-title>
+                </v-card>
               </v-flex>
             </v-layout>
           </v-flex>
 
-          <!-- Rules.yml overview -->
-          <v-flex xs6>
-            <vue-markdown># `rules.yml` Overview</vue-markdown>
-            <vue-markdown>{{ configFile }}</vue-markdown>
+          <v-flex xs8>
+            <!-- Rules -->
+            <v-card color="lime">
+              <v-card-title primary-title>
+                <div>
+                  <h3 class="headline mb-0">Rules</h3>
+                  <div>
+                    <SelectRule/>
+                    <v-layout row wrap>
+                      <v-flex v-for="(rule, i) in rulesConf" :key="`rule-${i}`">
+                        <Rule :item="rule"/>
+                      </v-flex>
+                    </v-layout>
+                  </div>
+                </div>
+              </v-card-title>
+            </v-card>
           </v-flex>
         </v-layout>
       </v-container>
@@ -46,6 +73,7 @@ import SelectOption from "./components/SelectOption";
 import Runnable from "./components/Runnable";
 import VueMarkdown from "vue-markdown";
 import Rule from "./components/Rule";
+import SelectRule from "./components/SelectRule";
 
 export default {
   name: "App",
@@ -54,7 +82,8 @@ export default {
     Option,
     SelectOption,
     VueMarkdown,
-    Rule
+    Rule,
+    SelectRule
   },
   created() {
     this.$store.commit("loadOptions", [
@@ -75,53 +104,143 @@ export default {
     this.$store.commit("loadRunnables", [
       {
         name: "CommentIssue",
-        args: ["comment"]
+        args: [
+          {
+            name: "comment",
+            value: ""
+          }
+        ]
       },
       {
         name: "CommentPullRequest",
-        args: ["comment"]
+        args: [
+          {
+            name: "comment",
+            value: ""
+          }
+        ]
       },
       {
         name: "CreatePullRequest",
-        args: ["title", "description", "source", "target"]
+        args: [
+          {
+            name: "title",
+            value: ""
+          },
+          {
+            name: "description",
+            value: ""
+          },
+          {
+            name: "source",
+            value: ""
+          },
+          {
+            name: "target",
+            value: ""
+          }
+        ]
       },
       {
         name: "Logger",
-        args: ["type", "message"]
+        args: [
+          {
+            name: "type",
+            value: ""
+          },
+          {
+            name: "message",
+            value: ""
+          }
+        ]
       },
       {
         name: "SendEmail",
-        args: ["to", "subject", "message"]
+        args: [
+          {
+            name: "to",
+            value: ""
+          },
+          {
+            name: "subject",
+            value: ""
+          },
+          {
+            name: "message",
+            value: ""
+          }
+        ]
       },
       {
         name: "UpdateCommitStatus",
         args: [
-          "successTargetUrl",
-          "failTargetUrl",
-          "successDescriptionMessage",
-          "failDescriptionMessage"
+          {
+            name: "successTargetUrl",
+            value: ""
+          },
+          {
+            name: "failTargetUrl",
+            value: ""
+          },
+          {
+            name: "successDescriptionMessage",
+            value: ""
+          },
+          {
+            name: "failDescriptionMessage",
+            value: ""
+          }
         ]
       },
       {
         name: "Webhook",
-        args: ["url", "data", "config"]
+        args: [
+          {
+            name: "url",
+            value: ""
+          },
+          {
+            name: "data",
+            value: ""
+          },
+          { name: "config", value: "" }
+        ]
       }
     ]);
 
     this.$store.commit("loadRules", [
       {
         name: "branchName",
-        options: ["regexp"],
+        options: [
+          {
+            name: "regexp",
+            value: ""
+          }
+        ],
         runnables: []
       },
       {
         name: "commitMessage",
-        options: ["regexp"],
+        options: [
+          {
+            name: "regexp",
+            value: ""
+          }
+        ],
         runnables: []
       },
       {
         name: "issueTitle",
-        options: ["regexp"],
+        options: [
+          {
+            name: "regexp",
+            value: ""
+          },
+          {
+            name: "toto",
+            value: "tata"
+          }
+        ],
         runnables: []
       },
       {
@@ -131,10 +250,21 @@ export default {
       },
       {
         name: "pullRequestTitle",
-        options: ["regexp"],
+        options: [
+          {
+            name: "regexp",
+            value: ""
+          }
+        ],
         runnables: []
       }
     ]);
+  },
+  methods: {
+    generateFile() {
+      console.log("generation...");
+      this.$store.commit("generateFile");
+    }
   },
   computed: {
     optionsList() {
@@ -153,6 +283,9 @@ export default {
     },
     optionsConf() {
       return this.$store.state.optionsConf;
+    },
+    rulesConf() {
+      return this.$store.state.rulesConf;
     },
     optionsAvailable() {
       return this.optionsList.filter(

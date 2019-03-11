@@ -2,12 +2,32 @@
   <v-card>
     <v-card-title primary-title>
       <div>
-        <h3 class="headline mb-0">{{ item.name }}</h3>
+        <h3 class="headline mb-0">
+          {{ item.name }}
+          <i
+            aria-hidden="true"
+            class="v-icon v-icon--link material-icons theme--light"
+            @click="removeRule"
+          >clear</i>
+        </h3>
         <div>
-          <v-select :items="item.options" label="Select an option"></v-select>
+          <div v-for="(option, i) in item.options" :key="`rule-{item.name}-option-${i}`">
+            <v-text-field
+              :label="`${option.name}`"
+              v-model="option.value"
+              @change="updateValue(option.name, option.value)"
+            ></v-text-field>
+          </div>
 
           <h4>Post-Actions</h4>
           <SelectRunnable :currentRule="item"/>
+
+          <v-flex
+            v-for="(runnable, i) in attachedRunnable"
+            :key="`rule-${item.name}-runnable-${i}`"
+          >
+            <Runnable :item="runnable" :attachedRule="item"/>
+          </v-flex>
         </div>
       </div>
     </v-card-title>
@@ -16,10 +36,28 @@
 
 <script>
 import SelectRunnable from "./SelectRunnable";
+import Runnable from "./Runnable";
 
 export default {
-  components: { SelectRunnable },
+  components: { SelectRunnable, Runnable },
   props: ["item"],
+  computed: {
+    attachedRunnable() {
+      return this.item.runnables.length > 0 ? this.item.runnables : null;
+    }
+  },
+  methods: {
+    updateValue(name, val) {
+      this.$store.commit("updateRuleOption", {
+        rule: this.item,
+        optionName: name,
+        optionValue: val
+      });
+    },
+    removeRule() {
+      this.$store.commit("removeRule", this.item);
+    }
+  },
   data: () => ({})
 };
 </script>

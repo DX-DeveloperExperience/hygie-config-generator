@@ -1,5 +1,5 @@
 <template>
-  <v-select :items="runnablesNames" label="Select a runnable" @change="selectRunnable"></v-select>
+  <v-select :items="runnablesNames" label="Add a runnable" @change="selectRunnable"></v-select>
 </template>
 
 <script>
@@ -14,13 +14,17 @@ export default {
     }
   },
   methods: {
-    selectRunnable(runnable) {
-      console.log("current rule: ");
-      console.log(this.currentRule);
+    selectRunnable(runnableName) {
+      console.log("Selected runnable: " + runnableName);
 
-      console.log("Selected runnable: " + runnable);
+      const runnable = this.runnablesList.filter(
+        r => r.name === runnableName
+      )[0];
 
-      this.$store.commit("addRunnableToRule", this.currentRule, runnable);
+      this.$store.commit("addRunnableToRule", {
+        rule: this.currentRule,
+        runnable: runnable
+      });
     }
   },
   data: () => ({})

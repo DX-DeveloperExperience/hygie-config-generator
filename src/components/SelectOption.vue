@@ -1,5 +1,5 @@
 <template>
-  <v-select :items="optionsNames" label="Select an option" @change="selectOption"></v-select>
+  <v-select :items="optionsNames" label="Add an option" @change="selectOption"></v-select>
 </template>
 
 <script>
