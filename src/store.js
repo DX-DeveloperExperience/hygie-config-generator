@@ -76,8 +76,93 @@ export default new Vuex.Store({
         rule.runnables.splice(index, 1);
       }
     },
+    setRunnableEvent(state, payload) {
+      const p_rule = payload.rule;
+      const p_runnable = payload.runnable;
+      const p_event = payload.event;
+
+      const rule = state.rulesConf.filter(r => r.id === p_rule.id)[0];
+      const runnable = rule.runnables.filter(r => r.id === p_runnable.id)[0];
+      runnable.event = p_event;
+    },
     generateFile(state) {
-      state.configFile += 'toto\n';
+      let result = '';
+      const options = this.state.optionsConf;
+      const rules = this.state.rulesConf;
+
+      // Create Options
+      if (options.length > 0) {
+        result += 'options:\n';
+
+        options.map(o => {
+          result += `  ${o.name}: ${o.value}\n`;
+        });
+      }
+
+      // Create Rules
+      if (rules.length > 0) {
+        result += 'rules:\n';
+
+        rules.map(r => {
+          result += `  - name: ${r.name}\n`;
+          if (r.options.length > 0) {
+            result += `    options:\n`;
+            r.options.map(o => {
+              result += `      ${o.name}: ${o.value}\n`;
+            });
+          }
+          if (r.runnables.length > 0) {
+            const onSuccessRunnables = r.runnables.filter(
+              r => r.event === 'onSuccess'
+            );
+            const onErrorRunnables = r.runnables.filter(
+              r => r.event === 'onError'
+            );
+            const onBothRunnables = r.runnables.filter(
+              r => r.event === 'onBoth'
+            );
+
+            if (onSuccessRunnables.length > 0) {
+              result += `    onSuccess:\n`;
+              onSuccessRunnables.map(s => {
+                result += `      - callback: ${s.name}Runnable\n`;
+                result += `        args:\n`;
+                s.args.map(a => {
+                  if (a.value !== '') {
+                    result += `          ${a.name}: ${a.value}\n`;
+                  }
+                });
+              });
+            }
+            if (onErrorRunnables.length > 0) {
+              result += `    onError:\n`;
+              onErrorRunnables.map(e => {
+                result += `      - callback: ${e.name}Runnable\n`;
+                result += `        args:\n`;
+                e.args.map(a => {
+                  if (a.value !== '') {
+                    result += `          ${a.name}: ${a.value}\n`;
+                  }
+                });
+              });
+            }
+            if (onBothRunnables.length > 0) {
+              result += `    onBoth:\n`;
+              onBothRunnables.map(b => {
+                result += `      - callback: ${b.name}Runnable\n`;
+                result += `        args:\n`;
+                b.args.map(a => {
+                  if (a.value !== '') {
+                    result += `          ${a.name}: ${a.value}\n`;
+                  }
+                });
+              });
+            }
+          }
+        });
+      }
+
+      this.state.configFile = result;
     },
     updateRuleOption(state, payload) {
       const p_rule = payload.rule;

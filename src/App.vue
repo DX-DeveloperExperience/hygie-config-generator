@@ -28,13 +28,13 @@
               <v-flex>
                 <v-card color="yellow">
                   <v-card-title primary-title>
-                    <div>
+                    <div style="width: 100%;">
                       <h3 class="headline mb-0">
                         <vue-markdown>`rules.yml` Overview</vue-markdown>
                       </h3>
                       <div>
                         <v-btn color="warning" @click="generateFile">Generate File</v-btn>
-                        <vue-markdown :source="configFile"></vue-markdown>
+                        <v-textarea outline :value="configFile"></v-textarea>
                       </div>
                     </div>
                   </v-card-title>
@@ -235,10 +235,6 @@ export default {
           {
             name: "regexp",
             value: ""
-          },
-          {
-            name: "toto",
-            value: "tata"
           }
         ],
         runnables: []

@@ -3,6 +3,7 @@
     <v-card-title primary-title>
       <div>
         <h3 class="headline mb-0">{{ item.name }}</h3>
+        <v-select :items="['onBoth', 'onSuccess', 'onError']" label="Event" @change="setEvent"></v-select>
         <div>
           <div v-for="(arg, i) in item.args" :key="`runnable-{item.name}-arg-${i}`">
             <v-text-field
@@ -37,6 +38,13 @@ export default {
       this.$store.commit("removeRunnable", {
         rule: this.attachedRule,
         runnable: this.item
+      });
+    },
+    setEvent(event) {
+      this.$store.commit("setRunnableEvent", {
+        event: event,
+        runnable: this.item,
+        rule: this.attachedRule
       });
     }
   },
