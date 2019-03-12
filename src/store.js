@@ -125,7 +125,7 @@ export default new Vuex.Store({
             if (onSuccessRunnables.length > 0) {
               result += `    onSuccess:\n`;
               onSuccessRunnables.map(s => {
-                result += `      - callback: ${s.name}Runnable\n`;
+                result += `      - callback: ${s.name}\n`;
                 result += `        args:\n`;
                 s.args.map(a => {
                   if (a.value !== '') {
@@ -137,7 +137,7 @@ export default new Vuex.Store({
             if (onErrorRunnables.length > 0) {
               result += `    onError:\n`;
               onErrorRunnables.map(e => {
-                result += `      - callback: ${e.name}Runnable\n`;
+                result += `      - callback: ${e.name}\n`;
                 result += `        args:\n`;
                 e.args.map(a => {
                   if (a.value !== '') {
@@ -149,7 +149,7 @@ export default new Vuex.Store({
             if (onBothRunnables.length > 0) {
               result += `    onBoth:\n`;
               onBothRunnables.map(b => {
-                result += `      - callback: ${b.name}Runnable\n`;
+                result += `      - callback: ${b.name}\n`;
                 result += `        args:\n`;
                 b.args.map(a => {
                   if (a.value !== '') {

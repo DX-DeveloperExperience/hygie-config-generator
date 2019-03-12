@@ -5,8 +5,8 @@
         <v-layout row wrap>
           <v-flex xs4>
             <v-layout row wrap>
+              <!-- Options -->
               <v-flex>
-                <!-- Options -->
                 <v-card color="pt_color p_color">
                   <div class="v-card-title p_color_dark fit-width">
                     <h1 class="headline mb-0">Options</h1>
@@ -41,8 +41,8 @@
             </v-layout>
           </v-flex>
 
+          <!-- Rules -->
           <v-flex xs8>
-            <!-- Rules -->
             <v-card color="p_color pt_color">
               <div class="v-card-title p_color_dark fit-width">
                 <h1 class="headline mb-0">Rules</h1>
@@ -88,10 +88,10 @@
 <script>
 import Option from "./components/Option";
 import SelectOption from "./components/SelectOption";
-import Runnable from "./components/Runnable";
-import VueMarkdown from "vue-markdown";
 import Rule from "./components/Rule";
 import SelectRule from "./components/SelectRule";
+import * as axios from "axios";
+import { constants } from "fs";
 
 function download(filename, text) {
   var element = document.createElement("a");
@@ -112,189 +112,31 @@ function download(filename, text) {
 export default {
   name: "App",
   components: {
-    Runnable,
     Option,
     SelectOption,
-    VueMarkdown,
     Rule,
-    SelectRule
+    SelectRule,
+    axios
   },
   created() {
-    this.$store.commit("loadOptions", [
-      {
-        name: "executeAllRules",
-        value: false
-      },
-      {
-        name: "enableRules",
-        value: true
-      },
-      {
-        name: "enableGroups",
-        value: true
-      }
-    ]);
+    axios.get("http://localhost:3000/rules").then(response => {
+      this.$store.commit("loadRules", response.data);
+    });
 
-    this.$store.commit("loadRunnables", [
-      {
-        name: "CommentIssue",
-        args: [
-          {
-            name: "comment",
-            value: ""
-          }
-        ]
-      },
-      {
-        name: "CommentPullRequest",
-        args: [
-          {
-            name: "comment",
-            value: ""
-          }
-        ]
-      },
-      {
-        name: "CreatePullRequest",
-        args: [
-          {
-            name: "title",
-            value: ""
-          },
-          {
-            name: "description",
-            value: ""
-          },
-          {
-            name: "source",
-            value: ""
-          },
-          {
-            name: "target",
-            value: ""
-          }
-        ]
-      },
-      {
-        name: "Logger",
-        args: [
-          {
-            name: "type",
-            value: ""
-          },
-          {
-            name: "message",
-            value: ""
-          }
-        ]
-      },
-      {
-        name: "SendEmail",
-        args: [
-          {
-            name: "to",
-            value: ""
-          },
-          {
-            name: "subject",
-            value: ""
-          },
-          {
-            name: "message",
-            value: ""
-          }
-        ]
-      },
-      {
-        name: "UpdateCommitStatus",
-        args: [
-          {
-            name: "successTargetUrl",
-            value: ""
-          },
-          {
-            name: "failTargetUrl",
-            value: ""
-          },
-          {
-            name: "successDescriptionMessage",
-            value: ""
-          },
-          {
-            name: "failDescriptionMessage",
-            value: ""
-          }
-        ]
-      },
-      {
-        name: "Webhook",
-        args: [
-          {
-            name: "url",
-            value: ""
-          },
-          {
-            name: "data",
-            value: ""
-          },
-          { name: "config", value: "" }
-        ]
-      }
-    ]);
+    axios.get("http://localhost:3000/runnables").then(response => {
+      this.$store.commit("loadRunnables", response.data);
+    });
 
-    this.$store.commit("loadRules", [
-      {
-        name: "branchName",
-        options: [
-          {
-            name: "regexp",
-            value: ""
-          }
-        ],
-        runnables: []
-      },
-      {
-        name: "commitMessage",
-        options: [
-          {
-            name: "regexp",
-            value: ""
-          }
-        ],
-        runnables: []
-      },
-      {
-        name: "issueTitle",
-        options: [
-          {
-            name: "regexp",
-            value: ""
-          }
-        ],
-        runnables: []
-      },
-      {
-        name: "oneCommitPerPR",
-        options: [],
-        runnables: []
-      },
-      {
-        name: "pullRequestTitle",
-        options: [
-          {
-            name: "regexp",
-            value: ""
-          }
-        ],
-        runnables: []
-      }
-    ]);
+    axios.get("http://localhost:3000/options").then(response => {
+      this.$store.commit("loadOptions", response.data);
+    });
   },
   methods: {
     generateFile() {
       this.$store.commit("generateFile");
     },
     downloadFile() {
+      this.generateFile();
       download("rules.yml", this.configFile);
     }
   },
