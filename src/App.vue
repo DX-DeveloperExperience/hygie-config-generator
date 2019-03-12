@@ -7,37 +7,35 @@
             <v-layout row wrap>
               <v-flex>
                 <!-- Options -->
-                <v-card color="indigo darken-3 white--text">
-                  <v-card-title primary-title>
-                    <div>
-                      <h1 class="headline mb-0">Options</h1>
-                      <div>
-                        <SelectOption :items="optionsAvailable"/>
-                        <v-layout row wrap>
-                          <v-flex v-for="(option, i) in optionsConf" :key="`option-${i}`" xs6>
-                            <Option :item="option"/>
-                          </v-flex>
-                        </v-layout>
-                      </div>
-                    </div>
-                  </v-card-title>
+                <v-card color="pt_color p_color">
+                  <div class="v-card-title p_color_dark fit-width">
+                    <h1 class="headline mb-0">Options</h1>
+                  </div>
+
+                  <div class="v-card-content">
+                    <SelectOption :items="optionsAvailable"/>
+                    <v-layout row wrap>
+                      <v-flex v-for="(option, i) in optionsConf" :key="`option-${i}`" xs6>
+                        <Option :item="option"/>
+                      </v-flex>
+                    </v-layout>
+                  </div>
                 </v-card>
               </v-flex>
 
               <!-- Config File -->
               <v-flex>
-                <v-card color="yellow">
-                  <v-card-title primary-title>
-                    <div class="fit-width">
-                      <h1 class="headline mb-0">
-                        <vue-markdown>`rules.yml` Overview</vue-markdown>
-                      </h1>
-                      <div>
-                        <v-btn color="warning" @click="generateFile">Generate File</v-btn>
-                        <v-textarea outline :value="configFile"></v-textarea>
-                      </div>
-                    </div>
-                  </v-card-title>
+                <v-card color="p_color pt_color">
+                  <div class="v-card-title p_color_dark fit-width">
+                    <h1 class="headline mb-0">
+                      <i>rules.yml</i> Overview
+                    </h1>
+                  </div>
+                  <div class="v-card-content">
+                    <v-btn color="success" @click="generateFile">Generate File</v-btn>
+                    <v-btn color="accent" @click="downloadFile">Download File</v-btn>
+                    <v-textarea outline :value="configFile"></v-textarea>
+                  </div>
                 </v-card>
               </v-flex>
             </v-layout>
@@ -45,20 +43,18 @@
 
           <v-flex xs8>
             <!-- Rules -->
-            <v-card color="lime">
-              <v-card-title primary-title>
-                <div>
-                  <h1 class="headline mb-0">Rules</h1>
-                  <div>
-                    <SelectRule/>
-                    <v-layout row wrap>
-                      <v-flex v-for="(rule, i) in rulesConf" :key="`rule-${i}`">
-                        <Rule :item="rule"/>
-                      </v-flex>
-                    </v-layout>
-                  </div>
-                </div>
-              </v-card-title>
+            <v-card color="p_color pt_color">
+              <div class="v-card-title p_color_dark fit-width">
+                <h1 class="headline mb-0">Rules</h1>
+              </div>
+              <div class="v-card-content">
+                <SelectRule/>
+                <v-layout row wrap>
+                  <v-flex v-for="(rule, i) in rulesConf" :key="`rule-${i}`">
+                    <Rule :item="rule"/>
+                  </v-flex>
+                </v-layout>
+              </div>
             </v-card>
           </v-flex>
         </v-layout>
@@ -68,33 +64,24 @@
 </template>
 
 <style lang="scss">
-.p-color-dark {
-  background-color: #001064 !important;
+.pt_color * {
+  color: #ffffff !important;
 }
-.p-color {
-  background-color: #283593 !important;
+.st_color * {
+  color: #000000 !important;
 }
-.p-color-light {
-  background-color: #5f5fc4 !important;
+.tt_color * {
+  color: #000000 !important;
 }
-.s-color-dark {
-  background-color: #c56000 !important;
-}
-.s-color {
-  background-color: #ff8f00 !important;
-}
-.s-color-light {
-  background-color: #ffc046 !important;
-}
-.pt-color > * {
-  color: white !important;
-}
-.st-color {
-  color: black !important;
-}
-
 .fit-width {
   width: 100%;
+}
+.v-card-title {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.v-card-content {
+  padding: 10px;
 }
 </style>
 
@@ -105,6 +92,22 @@ import Runnable from "./components/Runnable";
 import VueMarkdown from "vue-markdown";
 import Rule from "./components/Rule";
 import SelectRule from "./components/SelectRule";
+
+function download(filename, text) {
+  var element = document.createElement("a");
+  element.setAttribute(
+    "href",
+    "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+  );
+  element.setAttribute("download", filename);
+
+  element.style.display = "none";
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
 
 export default {
   name: "App",
@@ -290,6 +293,9 @@ export default {
   methods: {
     generateFile() {
       this.$store.commit("generateFile");
+    },
+    downloadFile() {
+      download("rules.yml", this.configFile);
     }
   },
   computed: {
