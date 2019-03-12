@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title primary-title>
       <div>
-        <h3 class="headline mb-0">{{ item.name }}</h3>
+        <h1 class="headline mb-0">{{ item.name }}</h1>
         <v-select :items="['onBoth', 'onSuccess', 'onError']" label="Event" @change="setEvent"></v-select>
         <div>
           <div v-for="(arg, i) in item.args" :key="`runnable-{item.name}-arg-${i}`">
@@ -47,7 +47,6 @@ export default {
         rule: this.attachedRule
       });
     }
-  },
-  data: () => ({})
+  }
 };
 </script>

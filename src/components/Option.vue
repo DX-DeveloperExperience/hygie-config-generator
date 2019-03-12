@@ -9,7 +9,6 @@ export default {
     updateOptions() {
       this.$store.commit("updateOptions", this.item);
     }
-  },
-  data: () => ({})
+  }
 };
 </script>

@@ -7,10 +7,10 @@
             <v-layout row wrap>
               <v-flex>
                 <!-- Options -->
-                <v-card color="light-green">
+                <v-card color="indigo darken-3 white--text">
                   <v-card-title primary-title>
                     <div>
-                      <h3 class="headline mb-0">Options</h3>
+                      <h1 class="headline mb-0">Options</h1>
                       <div>
                         <SelectOption :items="optionsAvailable"/>
                         <v-layout row wrap>
@@ -28,10 +28,10 @@
               <v-flex>
                 <v-card color="yellow">
                   <v-card-title primary-title>
-                    <div style="width: 100%;">
-                      <h3 class="headline mb-0">
+                    <div class="fit-width">
+                      <h1 class="headline mb-0">
                         <vue-markdown>`rules.yml` Overview</vue-markdown>
-                      </h3>
+                      </h1>
                       <div>
                         <v-btn color="warning" @click="generateFile">Generate File</v-btn>
                         <v-textarea outline :value="configFile"></v-textarea>
@@ -48,7 +48,7 @@
             <v-card color="lime">
               <v-card-title primary-title>
                 <div>
-                  <h3 class="headline mb-0">Rules</h3>
+                  <h1 class="headline mb-0">Rules</h1>
                   <div>
                     <SelectRule/>
                     <v-layout row wrap>
@@ -66,6 +66,37 @@
     </v-app>
   </div>
 </template>
+
+<style lang="scss">
+.p-color-dark {
+  background-color: #001064 !important;
+}
+.p-color {
+  background-color: #283593 !important;
+}
+.p-color-light {
+  background-color: #5f5fc4 !important;
+}
+.s-color-dark {
+  background-color: #c56000 !important;
+}
+.s-color {
+  background-color: #ff8f00 !important;
+}
+.s-color-light {
+  background-color: #ffc046 !important;
+}
+.pt-color > * {
+  color: white !important;
+}
+.st-color {
+  color: black !important;
+}
+
+.fit-width {
+  width: 100%;
+}
+</style>
 
 <script>
 import Option from "./components/Option";
@@ -258,7 +289,6 @@ export default {
   },
   methods: {
     generateFile() {
-      console.log("generation...");
       this.$store.commit("generateFile");
     }
   },

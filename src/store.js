@@ -66,7 +66,7 @@ export default new Vuex.Store({
       const p_rule = payload.rule;
       const p_runnable = payload.runnable;
       let index = -1;
-      const rule = state.rulesConf.filter(r => r.id === p_rule.id)[0];
+      const rule = state.rulesConf.find(r => r.id === p_rule.id);
       rule.runnables.forEach((r, i) => {
         if (r.id === p_runnable.id) {
           index = i;
@@ -81,8 +81,8 @@ export default new Vuex.Store({
       const p_runnable = payload.runnable;
       const p_event = payload.event;
 
-      const rule = state.rulesConf.filter(r => r.id === p_rule.id)[0];
-      const runnable = rule.runnables.filter(r => r.id === p_runnable.id)[0];
+      const rule = state.rulesConf.find(r => r.id === p_rule.id);
+      const runnable = rule.runnables.find(r => r.id === p_runnable.id);
       runnable.event = p_event;
     },
     generateFile(state) {
@@ -108,7 +108,7 @@ export default new Vuex.Store({
           if (r.options.length > 0) {
             result += `    options:\n`;
             r.options.map(o => {
-              result += `      ${o.name}: ${o.value}\n`;
+              result += `      ${o.name}: ${o.value || ' /!\\ EMPTY /!\\'}\n`;
             });
           }
           if (r.runnables.length > 0) {
@@ -169,8 +169,8 @@ export default new Vuex.Store({
       const p_optionName = payload.optionName;
       const p_optionValue = payload.optionValue;
 
-      const rule = state.rulesConf.filter(r => r.id === p_rule.id)[0];
-      const option = rule.options.filter(o => o.name === p_optionName)[0];
+      const rule = state.rulesConf.find(r => r.id === p_rule.id);
+      const option = rule.options.find(o => o.name === p_optionName);
       option.value = p_optionValue;
     },
     updateRunnableArg(state, payload) {
@@ -179,9 +179,9 @@ export default new Vuex.Store({
       const p_argName = payload.argName;
       const p_argValue = payload.argValue;
 
-      const rule = state.rulesConf.filter(r => r.id === p_rule.id)[0];
-      const runnable = rule.runnables.filter(r => r.id === p_runnable.id)[0];
-      const arg = runnable.args.filter(a => a.name === p_argName)[0];
+      const rule = state.rulesConf.find(r => r.id === p_rule.id);
+      const runnable = rule.runnables.find(r => r.id === p_runnable.id);
+      const arg = runnable.args.find(a => a.name === p_argName);
       arg.value = p_argValue;
     },
   },

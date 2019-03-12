@@ -1,5 +1,5 @@
 <template>
-  <v-select :items="rulesNames" label="Add a rule" @change="selectRule"></v-select>
+  <v-select :items="rulesNames" label="Add a rule" @change="selectRule" prepend-icon="ballot"></v-select>
 </template>
 
 <script>
@@ -14,10 +14,9 @@ export default {
   },
   methods: {
     selectRule(ruleName) {
-      const rule = this.rulesList.filter(r => r.name === ruleName)[0];
+      const rule = this.rulesList.find(r => r.name === ruleName);
       this.$store.commit("addRule", rule);
     }
-  },
-  data: () => ({})
+  }
 };
 </script>

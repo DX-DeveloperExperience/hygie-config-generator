@@ -2,14 +2,14 @@
   <v-card>
     <v-card-title primary-title>
       <div>
-        <h3 class="headline mb-0">
+        <h1 class="headline mb-0">
           {{ item.name }}
-          <i
+          <button
             aria-hidden="true"
             class="v-icon v-icon--link material-icons theme--light"
             @click="removeRule"
-          >clear</i>
-        </h3>
+          >clear</button>
+        </h1>
         <div>
           <div v-for="(option, i) in item.options" :key="`rule-{item.name}-option-${i}`">
             <v-text-field
@@ -57,7 +57,6 @@ export default {
     removeRule() {
       this.$store.commit("removeRule", this.item);
     }
-  },
-  data: () => ({})
+  }
 };
 </script>

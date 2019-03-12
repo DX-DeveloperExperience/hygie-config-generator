@@ -1,5 +1,10 @@
 <template>
-  <v-select :items="runnablesNames" label="Add a runnable" @change="selectRunnable"></v-select>
+  <v-select
+    :items="runnablesNames"
+    label="Add a runnable"
+    @change="selectRunnable"
+    prepend-icon="loop"
+  ></v-select>
 </template>
 
 <script>
@@ -15,18 +20,13 @@ export default {
   },
   methods: {
     selectRunnable(runnableName) {
-      console.log("Selected runnable: " + runnableName);
-
-      const runnable = this.runnablesList.filter(
-        r => r.name === runnableName
-      )[0];
+      const runnable = this.runnablesList.find(r => r.name === runnableName);
 
       this.$store.commit("addRunnableToRule", {
         rule: this.currentRule,
         runnable: runnable
       });
     }
-  },
-  data: () => ({})
+  }
 };
 </script>

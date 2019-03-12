@@ -1,5 +1,11 @@
 <template>
-  <v-select :items="optionsNames" label="Add an option" @change="selectOption"></v-select>
+  <v-select
+    color="white--text"
+    :items="optionsNames"
+    label="Add an option"
+    @change="selectOption"
+    prepend-icon="settings"
+  ></v-select>
 </template>
 
 <script>
@@ -14,10 +20,9 @@ export default {
     selectOption(option) {
       this.$store.commit(
         "updateOptions",
-        this.items.filter(o => o.name === option)[0]
+        this.items.find(o => o.name === option)
       );
     }
-  },
-  data: () => ({})
+  }
 };
 </script>
