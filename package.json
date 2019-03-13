@@ -1,14 +1,14 @@
 {
-  "name": "vue-config-rules",
+  "name": "git-webhooks-config-generator",
+  "description": "A VueJS SPA to generate the Git-Webhooks rules.yml file",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "0.18.0",
     "babel-runtime": "6.26.0",
     "vue": "2.6.8",
     "vuetify": "1.5.5",

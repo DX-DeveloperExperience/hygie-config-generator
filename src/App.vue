@@ -91,7 +91,6 @@ import SelectOption from "./components/SelectOption";
 import Rule from "./components/Rule";
 import SelectRule from "./components/SelectRule";
 import * as axios from "axios";
-import { constants } from "fs";
 
 function download(filename, text) {
   var element = document.createElement("a");
@@ -119,15 +118,17 @@ export default {
     axios
   },
   created() {
-    axios.get("http://localhost:3000/rules").then(response => {
+    const GIT_WEBHOOKS_API = process.env.VUE_APP_GIT_WEBHOOKS_API;
+
+    axios.get(`${GIT_WEBHOOKS_API}/rules`).then(response => {
       this.$store.commit("loadRules", response.data);
     });
 
-    axios.get("http://localhost:3000/runnables").then(response => {
+    axios.get(`${GIT_WEBHOOKS_API}/runnables`).then(response => {
       this.$store.commit("loadRunnables", response.data);
     });
 
-    axios.get("http://localhost:3000/options").then(response => {
+    axios.get(`${GIT_WEBHOOKS_API}/options`).then(response => {
       this.$store.commit("loadOptions", response.data);
     });
   },
