@@ -1,14 +1,17 @@
 <template>
-  <v-card color="t_color tt_color">
+  <v-card color="t_color">
     <div class="v-card-title t_color_dark">
-      <h1 class="headline mb-0">{{ item.name }}</h1>
+      <h1 class="headline mb-0">
+        {{ item.name }}
+        <button
+          aria-hidden="true"
+          class="v-icon v-icon--link material-icons theme--light"
+          @click="removeRunnable"
+        >clear</button>
+      </h1>
     </div>
     <div class="v-card-content">
-      <v-select
-        :items="['onBoth', 'onSuccess', 'onError']"
-        label="Event"
-        @change="setEvent"
-      ></v-select>
+      <v-select :items="['onBoth', 'onSuccess', 'onError']" label="Event" @change="setEvent"></v-select>
 
       <div v-for="(arg, i) in item.args" :key="`runnable-{item.name}-arg-${i}`">
         <v-text-field
@@ -18,16 +21,12 @@
         ></v-text-field>
       </div>
     </div>
-
-    <v-card-actions>
-      <v-btn flat color="red" @click="removeRunnable">Remove</v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 
 <script>
 export default {
-  props: ["item", "attachedRule"],
+  props: ["item", "attachedRule", "attachedGroup"],
   methods: {
     updateValue(name, val) {
       this.$store.commit("updateRunnableArg", {
@@ -40,6 +39,7 @@ export default {
     removeRunnable() {
       this.$store.commit("removeRunnable", {
         rule: this.attachedRule,
+        group: this.attachedGroup,
         runnable: this.item
       });
     },

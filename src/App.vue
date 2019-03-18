@@ -4,7 +4,7 @@
       <v-container grid-list-md text-xs-center>
         <v-layout row wrap>
           <v-flex xs12>
-            <v-card color="pt_color p_color">
+            <v-card color="p_color">
               <div class="v-card-title p_color_dark fit-width">
                 <h1 class="headline mb-0">
                   Git-Webhooks-Config-Generator
@@ -34,7 +34,7 @@
             <v-layout row wrap>
               <!-- Options -->
               <v-flex class="fit-width">
-                <v-card color="pt_color p_color">
+                <v-card color="p_color">
                   <div class="v-card-title p_color_dark fit-width">
                     <h1 class="headline mb-0">
                       Options
@@ -55,19 +55,40 @@
 
               <!-- Rules -->
               <v-flex class="fit-width">
-                <v-card color="p_color pt_color">
+                <v-card color="p_color">
                   <div class="v-card-title p_color_dark fit-width">
-                    <h1 class="headline mb-0">Rules
+                    <h1 class="headline mb-0">
+                      Rules
                       <i class="material-icons">apps</i>
                     </h1>
                   </div>
                   <div class="v-card-content">
-                    <SelectRule/>
+                    <SelectRule location="rule"/>
                     <v-layout row wrap>
                       <v-flex v-for="(rule, i) in rulesConf" :key="`rule-${i}`">
-                        <Rule :item="rule"/>
+                        <Rule :item="rule" :displayRunnable="true"/>
                       </v-flex>
                     </v-layout>
+                  </div>
+                </v-card>
+              </v-flex>
+
+              <!-- Groups -->
+              <v-flex class="fit-width">
+                <v-card color="p_color">
+                  <div class="v-card-title p_color_dark fit-width">
+                    <h1 class="headline mb-0">
+                      Groups
+                      <i class="material-icons">apps</i>
+                    </h1>
+                  </div>
+                  <div class="v-card-content">
+                    <v-btn @click="addGroup">
+                      New Group
+                      <i class="material-icons">add</i>
+                    </v-btn>
+
+                    <Group v-for="(group, i) in groupsConf" :key="`group-${i}`" :item="group"/>
                   </div>
                 </v-card>
               </v-flex>
@@ -76,7 +97,7 @@
 
           <!-- Config File -->
           <v-flex xs6>
-            <v-card color="p_color pt_color">
+            <v-card color="p_color">
               <div class="v-card-title p_color_dark fit-width">
                 <h1 class="headline mb-0">
                   <i>rules.yml</i> Overview
@@ -97,14 +118,8 @@
 </template>
 
 <style lang="scss">
-.pt_color * {
-  color: #ffffff !important;
-}
-.st_color * {
-  color: #000000 !important;
-}
-.tt_color * {
-  color: #000000 !important;
+.material-icons {
+  vertical-align: middle;
 }
 .fit-width {
   width: 100%;
@@ -112,12 +127,20 @@
 .v-card-title {
   padding-top: 5px;
   padding-bottom: 5px;
+  color: #ffffff !important;
 }
 .v-card-content {
   padding: 10px;
 }
+.v-card-content * {
+  color: #000000 !important;
+}
 .justify {
   text-align: justify;
+}
+.v-card-content a {
+  text-decoration: none;
+  color: #ff8f00 !important;
 }
 </style>
 
@@ -130,6 +153,7 @@ import * as axios from "axios";
 import { defaultRules } from "./defaults/rules";
 import { defaultRunnables } from "./defaults/runnables";
 import { defaultOptions } from "./defaults/options";
+import Group from "./components/Group";
 
 function download(filename, text) {
   var element = document.createElement("a");
@@ -153,7 +177,8 @@ export default {
     Option,
     SelectOption,
     Rule,
-    SelectRule
+    SelectRule,
+    Group
   },
   created() {
     const GIT_WEBHOOKS_API = process.env.VUE_APP_GIT_WEBHOOKS_API;
@@ -195,6 +220,9 @@ export default {
     downloadFile() {
       this.generateFile();
       download("rules.yml", this.configFile);
+    },
+    addGroup() {
+      this.$store.commit("addGroup");
     }
   },
   computed: {
@@ -217,6 +245,9 @@ export default {
     },
     rulesConf() {
       return this.$store.state.rulesConf;
+    },
+    groupsConf() {
+      return this.$store.state.groupsConf;
     },
     optionsAvailable() {
       return this.optionsList.filter(

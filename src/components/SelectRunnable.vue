@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  props: ["currentRule"],
+  props: ["currentRule", "currentGroup"],
   computed: {
     runnablesList() {
       return this.$store.state.runnablesList;
@@ -22,10 +22,17 @@ export default {
     selectRunnable(runnableName) {
       const runnable = this.runnablesList.find(r => r.name === runnableName);
 
-      this.$store.commit("addRunnableToRule", {
-        rule: this.currentRule,
-        runnable: runnable
-      });
+      if (this.currentRule !== undefined) {
+        this.$store.commit("addRunnableToRule", {
+          rule: this.currentRule,
+          runnable: runnable
+        });
+      } else if (this.currentGroup !== undefined) {
+        this.$store.commit("addRunnableToGroup", {
+          group: this.currentGroup,
+          runnable: runnable
+        });
+      }
     }
   }
 };
