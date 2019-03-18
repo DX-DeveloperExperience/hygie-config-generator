@@ -143,11 +143,18 @@ export default new Vuex.Store({
     },
     setRunnableEvent(state, payload) {
       const p_rule = payload.rule;
+      const p_group = payload.group;
       const p_runnable = payload.runnable;
       const p_event = payload.event;
 
-      const rule = state.rulesConf.find(r => r.id === p_rule.id);
-      const runnable = rule.runnables.find(r => r.id === p_runnable.id);
+      let ruleOrGroup;
+
+      if (p_rule !== undefined) {
+        ruleOrGroup = state.rulesConf.find(r => r.id === p_rule.id);
+      } else if (p_group !== undefined) {
+        ruleOrGroup = state.groupsConf.find(g => g.id === p_group.id);
+      }
+      const runnable = ruleOrGroup.runnables.find(r => r.id === p_runnable.id);
       runnable.event = p_event;
     },
     generateFile(state) {
@@ -238,24 +245,45 @@ export default new Vuex.Store({
     },
     updateRuleOption(state, payload) {
       const p_rule = payload.rule;
+      const inGroup = payload.inGroup;
       const p_optionName = payload.optionName;
       const p_optionValue = payload.optionValue;
 
-      const rule = state.rulesConf.find(r => r.id === p_rule.id);
-      const option = rule.options.find(o => o.name === p_optionName);
+      let rule;
+      let option;
+
+      if (!inGroup) {
+        rule = state.rulesConf.find(r => r.id === p_rule.id);
+        option = rule.options.find(o => o.name === p_optionName);
+      } else {
+        state.groupsConf.forEach(g => {
+          g.rules.forEach(r => {
+            if (r.id === p_rule.id) {
+              option = r.options.find(o => o.name === p_optionName);
+            }
+          });
+        });
+      }
       option.value = p_optionValue;
     },
     updateRunnableArg(state, payload) {
       const p_rule = payload.rule;
+      const p_group = payload.group;
       const p_runnable = payload.runnable;
       const p_argName = payload.argName;
       const p_argValue = payload.argValue;
 
-      const rule = state.rulesConf.find(r => r.id === p_rule.id);
-      const runnable = rule.runnables.find(r => r.id === p_runnable.id);
+      let runnable;
+
+      if (p_rule !== undefined) {
+        const rule = state.rulesConf.find(r => r.id === p_rule.id);
+        runnable = rule.runnables.find(r => r.id === p_runnable.id);
+      } else if (p_runnable !== undefined) {
+        const group = state.groupsConf.find(g => g.id === p_group.id);
+        runnable = group.runnables.find(r => r.id === p_runnable.id);
+      }
       const arg = runnable.args.find(a => a.name === p_argName);
       arg.value = p_argValue;
     },
   },
-  actions: {},
 });

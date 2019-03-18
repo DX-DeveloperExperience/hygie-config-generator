@@ -31,6 +31,7 @@ export default {
     updateValue(name, val) {
       this.$store.commit("updateRunnableArg", {
         rule: this.attachedRule,
+        group: this.attachedGroup,
         runnable: this.item,
         argName: name,
         argValue: val
@@ -47,7 +48,8 @@ export default {
       this.$store.commit("setRunnableEvent", {
         event: event,
         runnable: this.item,
-        rule: this.attachedRule
+        rule: this.attachedRule,
+        group: this.attachedGroup
       });
     }
   }

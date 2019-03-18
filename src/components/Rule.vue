@@ -47,6 +47,7 @@ export default {
     updateValue(name, val) {
       this.$store.commit("updateRuleOption", {
         rule: this.item,
+        inGroup: this.displayRunnable ? false : true,
         optionName: name,
         optionValue: val
       });
