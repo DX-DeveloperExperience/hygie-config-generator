@@ -91,6 +91,9 @@ import SelectOption from "./components/SelectOption";
 import Rule from "./components/Rule";
 import SelectRule from "./components/SelectRule";
 import * as axios from "axios";
+import { defaultRules } from "./defaults/rules";
+import { defaultRunnables } from "./defaults/runnables";
+import { defaultOptions } from "./defaults/options";
 
 function download(filename, text) {
   var element = document.createElement("a");
@@ -120,17 +123,35 @@ export default {
   created() {
     const GIT_WEBHOOKS_API = process.env.VUE_APP_GIT_WEBHOOKS_API;
 
-    axios.get(`${GIT_WEBHOOKS_API}/rules`).then(response => {
-      this.$store.commit("loadRules", response.data);
-    });
+    axios
+      .get(`${GIT_WEBHOOKS_API}/rules`)
+      .then(response => {
+        this.$store.commit("loadRules", response.data);
+      })
+      .catch(err => {
+        console.log("No API founded, loading defaut rules...", err);
+        this.$store.commit("loadRules", defaultRules);
+      });
 
-    axios.get(`${GIT_WEBHOOKS_API}/runnables`).then(response => {
-      this.$store.commit("loadRunnables", response.data);
-    });
+    axios
+      .get(`${GIT_WEBHOOKS_API}/runnables`)
+      .then(response => {
+        this.$store.commit("loadRunnables", response.data);
+      })
+      .catch(err => {
+        console.log("No API founded, loading defaut runnables...", err);
+        this.$store.commit("loadRunnables", defaultRunnables);
+      });
 
-    axios.get(`${GIT_WEBHOOKS_API}/options`).then(response => {
-      this.$store.commit("loadOptions", response.data);
-    });
+    axios
+      .get(`${GIT_WEBHOOKS_API}/options`)
+      .then(response => {
+        this.$store.commit("loadOptions", response.data);
+      })
+      .catch(err => {
+        console.log("No API founded, loading defaut options...", err);
+        this.$store.commit("loadOptions", defaultOptions);
+      });
   },
   methods: {
     generateFile() {

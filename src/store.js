@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from "vue";
+import Vuex from "vuex";
 
 Vue.use(Vuex);
 
@@ -12,7 +12,7 @@ export default new Vuex.Store({
     rulesConf: [],
     ruleId: 0,
     runnableId: 0,
-    configFile: '',
+    configFile: ""
   },
   mutations: {
     loadOptions(state, options) {
@@ -86,13 +86,13 @@ export default new Vuex.Store({
       runnable.event = p_event;
     },
     generateFile(state) {
-      let result = '';
+      let result = "";
       const options = this.state.optionsConf;
       const rules = this.state.rulesConf;
 
       // Create Options
       if (options.length > 0) {
-        result += 'options:\n';
+        result += "options:\n";
 
         options.map(o => {
           result += `  ${o.name}: ${o.value}\n`;
@@ -101,25 +101,25 @@ export default new Vuex.Store({
 
       // Create Rules
       if (rules.length > 0) {
-        result += 'rules:\n';
+        result += "rules:\n";
 
         rules.map(r => {
           result += `  - name: ${r.name}\n`;
           if (r.options.length > 0) {
             result += `    options:\n`;
             r.options.map(o => {
-              result += `      ${o.name}: ${o.value || ' /!\\ EMPTY /!\\'}\n`;
+              result += `      ${o.name}: ${o.value || " /!\\ EMPTY /!\\"}\n`;
             });
           }
           if (r.runnables.length > 0) {
             const onSuccessRunnables = r.runnables.filter(
-              r => r.event === 'onSuccess'
+              r => r.event === "onSuccess"
             );
             const onErrorRunnables = r.runnables.filter(
-              r => r.event === 'onError'
+              r => r.event === "onError"
             );
             const onBothRunnables = r.runnables.filter(
-              r => r.event === 'onBoth'
+              r => r.event === "onBoth"
             );
 
             if (onSuccessRunnables.length > 0) {
@@ -128,7 +128,7 @@ export default new Vuex.Store({
                 result += `      - callback: ${s.name}\n`;
                 result += `        args:\n`;
                 s.args.map(a => {
-                  if (a.value !== '') {
+                  if (a.value !== "") {
                     result += `          ${a.name}: ${a.value}\n`;
                   }
                 });
@@ -140,7 +140,7 @@ export default new Vuex.Store({
                 result += `      - callback: ${e.name}\n`;
                 result += `        args:\n`;
                 e.args.map(a => {
-                  if (a.value !== '') {
+                  if (a.value !== "") {
                     result += `          ${a.name}: ${a.value}\n`;
                   }
                 });
@@ -152,7 +152,7 @@ export default new Vuex.Store({
                 result += `      - callback: ${b.name}\n`;
                 result += `        args:\n`;
                 b.args.map(a => {
-                  if (a.value !== '') {
+                  if (a.value !== "") {
                     result += `          ${a.name}: ${a.value}\n`;
                   }
                 });
@@ -183,7 +183,7 @@ export default new Vuex.Store({
       const runnable = rule.runnables.find(r => r.id === p_runnable.id);
       const arg = runnable.args.find(a => a.name === p_argName);
       arg.value = p_argValue;
-    },
+    }
   },
-  actions: {},
+  actions: {}
 });

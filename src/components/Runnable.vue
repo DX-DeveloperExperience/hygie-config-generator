@@ -4,7 +4,11 @@
       <h1 class="headline mb-0">{{ item.name }}</h1>
     </div>
     <div class="v-card-content">
-      <v-select :items="['onBoth', 'onSuccess', 'onError']" label="Event" @change="setEvent"></v-select>
+      <v-select
+        :items="['onBoth', 'onSuccess', 'onError']"
+        label="Event"
+        @change="setEvent"
+      ></v-select>
 
       <div v-for="(arg, i) in item.args" :key="`runnable-{item.name}-arg-${i}`">
         <v-text-field
