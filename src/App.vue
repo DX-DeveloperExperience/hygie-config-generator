@@ -3,10 +3,10 @@
     <v-app id="vue-config-rules">
       <v-container grid-list-md text-xs-center>
         <v-layout row wrap>
-          <v-flex xs4>
+          <v-flex xs6>
             <v-layout row wrap>
               <!-- Options -->
-              <v-flex>
+              <v-flex class="fit-width">
                 <v-card color="pt_color p_color">
                   <div class="v-card-title p_color_dark fit-width">
                     <h1 class="headline mb-0">Options</h1>
@@ -23,37 +23,37 @@
                 </v-card>
               </v-flex>
 
-              <!-- Config File -->
-              <v-flex>
+              <!-- Rules -->
+              <v-flex class="fit-width">
                 <v-card color="p_color pt_color">
                   <div class="v-card-title p_color_dark fit-width">
-                    <h1 class="headline mb-0">
-                      <i>rules.yml</i> Overview
-                    </h1>
+                    <h1 class="headline mb-0">Rules</h1>
                   </div>
                   <div class="v-card-content">
-                    <v-btn color="success" @click="generateFile">Generate File</v-btn>
-                    <v-btn color="accent" @click="downloadFile">Download File</v-btn>
-                    <v-textarea outline :value="configFile"></v-textarea>
+                    <SelectRule/>
+                    <v-layout row wrap>
+                      <v-flex v-for="(rule, i) in rulesConf" :key="`rule-${i}`">
+                        <Rule :item="rule"/>
+                      </v-flex>
+                    </v-layout>
                   </div>
                 </v-card>
               </v-flex>
             </v-layout>
           </v-flex>
 
-          <!-- Rules -->
-          <v-flex xs8>
+          <!-- Config File -->
+          <v-flex xs6>
             <v-card color="p_color pt_color">
               <div class="v-card-title p_color_dark fit-width">
-                <h1 class="headline mb-0">Rules</h1>
+                <h1 class="headline mb-0">
+                  <i>rules.yml</i> Overview
+                </h1>
               </div>
               <div class="v-card-content">
-                <SelectRule/>
-                <v-layout row wrap>
-                  <v-flex v-for="(rule, i) in rulesConf" :key="`rule-${i}`">
-                    <Rule :item="rule"/>
-                  </v-flex>
-                </v-layout>
+                <v-btn color="success" @click="generateFile">Generate File</v-btn>
+                <v-btn color="accent" @click="downloadFile">Download File</v-btn>
+                <v-textarea outline :value="configFile" rows="20"></v-textarea>
               </div>
             </v-card>
           </v-flex>
