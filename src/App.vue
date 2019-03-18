@@ -3,13 +3,43 @@
     <v-app id="vue-config-rules">
       <v-container grid-list-md text-xs-center>
         <v-layout row wrap>
+          <v-flex xs12>
+            <v-card color="pt_color p_color">
+              <div class="v-card-title p_color_dark fit-width">
+                <h1 class="headline mb-0">
+                  Git-Webhooks-Config-Generator
+                  <i class="material-icons">build</i>
+                </h1>
+              </div>
+
+              <div class="v-card-content justify">
+                <p>
+                  This SPA allows you to generate the
+                  <a>rules.yml</a> config file for your
+                  <a
+                    href="https://github.com/DX-DeveloperExperience/git-webhooks"
+                  >Git-Webhooks API</a> with a friendly user-interface.
+                </p>
+                <p>
+                  This application will source every Rules and Runnables you've
+                  created in your Git-Webhooks project, and display all of them in
+                  the UI. If Git-Webhooks project it's not running, the
+                  configurator come with default values.
+                </p>
+              </div>
+            </v-card>
+          </v-flex>
+
           <v-flex xs6>
             <v-layout row wrap>
               <!-- Options -->
               <v-flex class="fit-width">
                 <v-card color="pt_color p_color">
                   <div class="v-card-title p_color_dark fit-width">
-                    <h1 class="headline mb-0">Options</h1>
+                    <h1 class="headline mb-0">
+                      Options
+                      <i class="material-icons">settings</i>
+                    </h1>
                   </div>
 
                   <div class="v-card-content">
@@ -27,7 +57,9 @@
               <v-flex class="fit-width">
                 <v-card color="p_color pt_color">
                   <div class="v-card-title p_color_dark fit-width">
-                    <h1 class="headline mb-0">Rules</h1>
+                    <h1 class="headline mb-0">Rules
+                      <i class="material-icons">apps</i>
+                    </h1>
                   </div>
                   <div class="v-card-content">
                     <SelectRule/>
@@ -48,6 +80,7 @@
               <div class="v-card-title p_color_dark fit-width">
                 <h1 class="headline mb-0">
                   <i>rules.yml</i> Overview
+                  <i class="material-icons">code</i>
                 </h1>
               </div>
               <div class="v-card-content">
@@ -83,6 +116,9 @@
 .v-card-content {
   padding: 10px;
 }
+.justify {
+  text-align: justify;
+}
 </style>
 
 <script>
@@ -117,8 +153,7 @@ export default {
     Option,
     SelectOption,
     Rule,
-    SelectRule,
-    axios
+    SelectRule
   },
   created() {
     const GIT_WEBHOOKS_API = process.env.VUE_APP_GIT_WEBHOOKS_API;
