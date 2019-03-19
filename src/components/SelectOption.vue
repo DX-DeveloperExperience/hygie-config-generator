@@ -1,11 +1,19 @@
 <template>
   <v-select
     color="white--text"
-    :items="optionsNames"
+    :items="items"
     label="Add an option"
     @change="selectOption"
     prepend-icon="settings"
-  ></v-select>
+    item-value="name"
+  >
+    <template v-slot:item="{ item, index }">
+      <div>
+        <p class="select_name">{{ item.name }}</p>
+        <p class="select_tooltip">{{ item.tooltip }}</p>
+      </div>
+    </template>
+  </v-select>
 </template>
 
 <script>

@@ -1,9 +1,11 @@
 <template>
-  <v-switch
-    v-model="item.value"
-    :label="`${item.name}`"
-    @change="updateOptions"
-  ></v-switch>
+  <v-tooltip bottom>
+    <template v-slot:activator="{ on }">
+      <v-switch v-on="on" v-model="item.value" :label="item.name" @change="updateOptions"></v-switch>
+    </template>
+
+    <span>{{ item.tooltip }}</span>
+  </v-tooltip>
 </template>
 
 <script>

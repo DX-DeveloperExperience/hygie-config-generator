@@ -159,6 +159,12 @@
 #groups .align-cross {
   margin-top: 10px;
 }
+.select_tooltip {
+  font-size: 0.7em;
+}
+.select_name {
+  margin-bottom: 0px;
+}
 </style>
 
 <script>
