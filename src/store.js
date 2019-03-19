@@ -3,6 +3,16 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+function wrapValue(type, val) {
+  if (val === '') {
+    return `/!\\ EMPTY /!\\`;
+  }
+  if (type === 'string') {
+    return `'${val}'`;
+  }
+  return val;
+}
+
 export default new Vuex.Store({
   state: {
     optionsList: [],
@@ -181,7 +191,9 @@ export default new Vuex.Store({
           if (r.options.length > 0) {
             result += `    options:\n`;
             r.options.map(o => {
-              result += `      ${o.name}: ${o.value || ' /!\\ EMPTY /!\\'}\n`;
+              if (o.value !== '') {
+                result += `      ${o.name}: ${wrapValue(o.type, o.value)}\n`;
+              }
             });
           }
           if (r.runnables.length > 0) {
@@ -202,7 +214,10 @@ export default new Vuex.Store({
                 result += `        args:\n`;
                 s.args.map(a => {
                   if (a.value !== '') {
-                    result += `          ${a.name}: ${a.value}\n`;
+                    result += `          ${a.name}: ${wrapValue(
+                      a.type,
+                      a.value
+                    )}\n`;
                   }
                 });
               });
@@ -214,7 +229,10 @@ export default new Vuex.Store({
                 result += `        args:\n`;
                 e.args.map(a => {
                   if (a.value !== '') {
-                    result += `          ${a.name}: ${a.value}\n`;
+                    result += `          ${a.name}: ${wrapValue(
+                      a.type,
+                      a.value
+                    )}\n`;
                   }
                 });
               });
@@ -226,7 +244,10 @@ export default new Vuex.Store({
                 result += `        args:\n`;
                 b.args.map(a => {
                   if (a.value !== '') {
-                    result += `          ${a.name}: ${a.value}\n`;
+                    result += `          ${a.name}: ${wrapValue(
+                      a.type,
+                      a.value
+                    )}\n`;
                   }
                 });
               });
@@ -248,8 +269,12 @@ export default new Vuex.Store({
               if (r.options.length > 0) {
                 result += `        options:\n`;
                 r.options.map(o => {
-                  result += `          ${o.name}: ${o.value ||
-                    ' /!\\ EMPTY /!\\'}\n`;
+                  if (o.value !== '') {
+                    result += `          ${o.name}: ${wrapValue(
+                      o.type,
+                      o.value
+                    )}\n`;
+                  }
                 });
               }
             });
@@ -273,7 +298,10 @@ export default new Vuex.Store({
                 result += `        args:\n`;
                 s.args.map(a => {
                   if (a.value !== '') {
-                    result += `          ${a.name}: ${a.value}\n`;
+                    result += `          ${a.name}: ${wrapValue(
+                      a.type,
+                      a.value
+                    )}\n`;
                   }
                 });
               });
@@ -285,7 +313,10 @@ export default new Vuex.Store({
                 result += `        args:\n`;
                 e.args.map(a => {
                   if (a.value !== '') {
-                    result += `          ${a.name}: ${a.value}\n`;
+                    result += `          ${a.name}: ${wrapValue(
+                      a.type,
+                      a.value
+                    )}\n`;
                   }
                 });
               });
@@ -297,7 +328,10 @@ export default new Vuex.Store({
                 result += `        args:\n`;
                 b.args.map(a => {
                   if (a.value !== '') {
-                    result += `          ${a.name}: ${a.value}\n`;
+                    result += `          ${a.name}: ${wrapValue(
+                      a.type,
+                      a.value
+                    )}\n`;
                   }
                 });
               });

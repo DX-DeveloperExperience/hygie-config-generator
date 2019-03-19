@@ -7,11 +7,16 @@
           aria-hidden="true"
           class="v-icon v-icon--link material-icons theme--light"
           @click="removeRule"
-        >clear</button>
+        >
+          clear
+        </button>
       </h1>
     </div>
     <div class="v-card-content">
-      <div v-for="(option, i) in item.options" :key="`rule-${item.name}-option-${i}`">
+      <div
+        v-for="(option, i) in item.options"
+        :key="`rule-${item.name}-option-${i}`"
+      >
         <v-text-field
           :label="`${option.name}`"
           v-model="option.value"
@@ -21,10 +26,13 @@
 
       <div v-if="displayRunnable">
         <h4>Post-Actions</h4>
-        <SelectRunnable :currentRule="item"/>
+        <SelectRunnable :currentRule="item" />
 
-        <v-flex v-for="(runnable, i) in attachedRunnable" :key="`rule-${item.name}-runnable-${i}`">
-          <Runnable :item="runnable" :attachedRule="item"/>
+        <v-flex
+          v-for="(runnable, i) in attachedRunnable"
+          :key="`rule-${item.name}-runnable-${i}`"
+        >
+          <Runnable :item="runnable" :attachedRule="item" />
         </v-flex>
       </div>
     </div>

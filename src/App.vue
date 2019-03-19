@@ -18,12 +18,14 @@
                   <a>rules.yml</a> config file for your
                   <a
                     href="https://github.com/DX-DeveloperExperience/git-webhooks"
-                  >Git-Webhooks API</a> with a friendly user-interface.
+                    >Git-Webhooks API</a
+                  >
+                  with a friendly user-interface.
                 </p>
                 <p>
                   This application will source every Rules and Runnables you've
-                  created in your Git-Webhooks project, and display all of them in
-                  the UI. If Git-Webhooks project it's not running, the
+                  created in your Git-Webhooks project, and display all of them
+                  in the UI. If Git-Webhooks project it's not running, the
                   configurator come with default values.
                 </p>
               </div>
@@ -43,10 +45,14 @@
                   </div>
 
                   <div class="v-card-content">
-                    <SelectOption :items="optionsAvailable"/>
+                    <SelectOption :items="optionsAvailable" />
                     <v-layout row wrap>
-                      <v-flex v-for="(option, i) in optionsConf" :key="`option-${i}`" xs6>
-                        <Option :item="option"/>
+                      <v-flex
+                        v-for="(option, i) in optionsConf"
+                        :key="`option-${i}`"
+                        xs6
+                      >
+                        <Option :item="option" />
                       </v-flex>
                     </v-layout>
                   </div>
@@ -63,10 +69,10 @@
                     </h1>
                   </div>
                   <div class="v-card-content">
-                    <SelectRule location="rule"/>
+                    <SelectRule location="rule" />
                     <v-layout row wrap>
                       <v-flex v-for="(rule, i) in rulesConf" :key="`rule-${i}`">
-                        <Rule :item="rule" :displayRunnable="true"/>
+                        <Rule :item="rule" :displayRunnable="true" />
                       </v-flex>
                     </v-layout>
                   </div>
@@ -88,7 +94,11 @@
                       <i class="material-icons">add</i>
                     </v-btn>
 
-                    <Group v-for="(group, i) in groupsConf" :key="`group-${i}`" :item="group"/>
+                    <Group
+                      v-for="(group, i) in groupsConf"
+                      :key="`group-${i}`"
+                      :item="group"
+                    />
                   </div>
                 </v-card>
               </v-flex>
@@ -105,8 +115,12 @@
                 </h1>
               </div>
               <div class="v-card-content">
-                <v-btn color="success" @click="generateFile">Generate File</v-btn>
-                <v-btn color="accent" @click="downloadFile">Download File</v-btn>
+                <v-btn color="success" @click="generateFile"
+                  >Generate File</v-btn
+                >
+                <v-btn color="accent" @click="downloadFile"
+                  >Download File</v-btn
+                >
                 <v-textarea outline :value="configFile" rows="20"></v-textarea>
               </div>
             </v-card>

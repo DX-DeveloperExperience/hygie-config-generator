@@ -11,19 +11,24 @@
           aria-hidden="true"
           class="v-icon v-icon--link material-icons theme--light"
           @click="removeGroup"
-        >clear</button>
+        >
+          clear
+        </button>
       </h1>
     </div>
     <div class="v-card-content">
-      <SelectRule location="group" :group="item"/>
-      <SelectRunnable :currentGroup="item"/>
+      <SelectRule location="group" :group="item" />
+      <SelectRunnable :currentGroup="item" />
 
       <v-flex v-for="(rule, i) in groupRules" :key="`rule-${i}`">
-        <Rule :item="rule" :displayRunnable="false"/>
+        <Rule :item="rule" :displayRunnable="false" />
       </v-flex>
 
-      <v-flex v-for="(runnable, i) in attachedRunnable" :key="`rule-${item.name}-runnable-${i}`">
-        <Runnable :item="runnable" :attachedGroup="item"/>
+      <v-flex
+        v-for="(runnable, i) in attachedRunnable"
+        :key="`rule-${item.name}-runnable-${i}`"
+      >
+        <Runnable :item="runnable" :attachedGroup="item" />
       </v-flex>
     </div>
   </v-card>
@@ -38,13 +43,11 @@
 }
 </style>
 
-
 <script>
 import SelectRule from "./SelectRule";
 import SelectRunnable from "./SelectRunnable";
 import Rule from "./Rule";
 import Runnable from "./Runnable";
-import { constants } from "fs";
 
 export default {
   components: { SelectRule, SelectRunnable, Rule, Runnable },

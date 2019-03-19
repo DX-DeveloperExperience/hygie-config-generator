@@ -7,11 +7,17 @@
           aria-hidden="true"
           class="v-icon v-icon--link material-icons theme--light"
           @click="removeRunnable"
-        >clear</button>
+        >
+          clear
+        </button>
       </h1>
     </div>
     <div class="v-card-content">
-      <v-select :items="['onBoth', 'onSuccess', 'onError']" label="Event" @change="setEvent"></v-select>
+      <v-select
+        :items="['onBoth', 'onSuccess', 'onError']"
+        label="Event"
+        @change="setEvent"
+      ></v-select>
 
       <div v-for="(arg, i) in item.args" :key="`runnable-{item.name}-arg-${i}`">
         <v-text-field

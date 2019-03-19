@@ -1,5 +1,10 @@
 <template>
-  <v-select :items="rulesNames" label="Add a rule" @change="selectRule" prepend-icon="ballot"></v-select>
+  <v-select
+    :items="rulesNames"
+    label="Add a rule"
+    @change="selectRule"
+    prepend-icon="ballot"
+  ></v-select>
 </template>
 
 <script>
