@@ -391,5 +391,18 @@ export default new Vuex.Store({
       const arg = runnable.args.find(a => a.name === p_argName);
       arg.value = p_argValue;
     },
+    rulesDraggabled(state, rules) {
+      state.rulesConf = rules;
+    },
+    groupsDraggabled(state, groups) {
+      state.groupsConf = groups;
+    },
+    groupsRulesDraggabled(state, payload) {
+      const p_group = payload.group;
+      const p_rules = payload.rules;
+
+      const group = state.groupsConf.find(g => g.id === p_group.id);
+      group.rules = p_rules;
+    },
   },
 });

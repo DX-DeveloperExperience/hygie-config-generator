@@ -18,8 +18,7 @@
                   <a>rules.yml</a> config file for your
                   <a
                     href="https://github.com/DX-DeveloperExperience/git-webhooks"
-                    >Git-Webhooks API</a
-                  >
+                  >Git-Webhooks API</a>
                   with a friendly user-interface.
                 </p>
                 <p>
@@ -35,7 +34,7 @@
           <v-flex xs6>
             <v-layout row wrap>
               <!-- Options -->
-              <v-flex class="fit-width">
+              <v-flex class="fit-width" id="options">
                 <v-card color="p_color">
                   <div class="v-card-title p_color_dark fit-width">
                     <h1 class="headline mb-0">
@@ -45,14 +44,10 @@
                   </div>
 
                   <div class="v-card-content">
-                    <SelectOption :items="optionsAvailable" />
+                    <SelectOption :items="optionsAvailable"/>
                     <v-layout row wrap>
-                      <v-flex
-                        v-for="(option, i) in optionsConf"
-                        :key="`option-${i}`"
-                        xs6
-                      >
-                        <Option :item="option" />
+                      <v-flex v-for="(option, i) in optionsConf" :key="`option-${i}`" xs6>
+                        <Option :item="option"/>
                       </v-flex>
                     </v-layout>
                   </div>
@@ -60,7 +55,7 @@
               </v-flex>
 
               <!-- Rules -->
-              <v-flex class="fit-width">
+              <v-flex class="fit-width" id="rules">
                 <v-card color="p_color">
                   <div class="v-card-title p_color_dark fit-width">
                     <h1 class="headline mb-0">
@@ -69,18 +64,21 @@
                     </h1>
                   </div>
                   <div class="v-card-content">
-                    <SelectRule location="rule" />
-                    <v-layout row wrap>
-                      <v-flex v-for="(rule, i) in rulesConf" :key="`rule-${i}`">
-                        <Rule :item="rule" :displayRunnable="true" />
-                      </v-flex>
-                    </v-layout>
+                    <SelectRule location="rule"/>
+                    <draggable @start="drag=true" @end="drag=false" v-model="rulesConf">
+                      <Rule
+                        v-for="(rule, i) in rulesConf"
+                        :key="`rule-${i}`"
+                        :item="rule"
+                        :displayRunnable="true"
+                      />
+                    </draggable>
                   </div>
                 </v-card>
               </v-flex>
 
               <!-- Groups -->
-              <v-flex class="fit-width">
+              <v-flex class="fit-width" id="groups">
                 <v-card color="p_color">
                   <div class="v-card-title p_color_dark fit-width">
                     <h1 class="headline mb-0">
@@ -94,11 +92,9 @@
                       <i class="material-icons">add</i>
                     </v-btn>
 
-                    <Group
-                      v-for="(group, i) in groupsConf"
-                      :key="`group-${i}`"
-                      :item="group"
-                    />
+                    <draggable @start="drag=true" @end="drag=false" v-model="groupsConf">
+                      <Group v-for="(group, i) in groupsConf" :key="`group-${i}`" :item="group"/>
+                    </draggable>
                   </div>
                 </v-card>
               </v-flex>
@@ -106,7 +102,7 @@
           </v-flex>
 
           <!-- Config File -->
-          <v-flex xs6>
+          <v-flex xs6 id="config_file">
             <v-card color="p_color">
               <div class="v-card-title p_color_dark fit-width">
                 <h1 class="headline mb-0">
@@ -115,12 +111,8 @@
                 </h1>
               </div>
               <div class="v-card-content">
-                <v-btn color="success" @click="generateFile"
-                  >Generate File</v-btn
-                >
-                <v-btn color="accent" @click="downloadFile"
-                  >Download File</v-btn
-                >
+                <v-btn color="success" @click="generateFile">Generate File</v-btn>
+                <v-btn color="accent" @click="downloadFile">Download File</v-btn>
                 <v-textarea outline :value="configFile" rows="20"></v-textarea>
               </div>
             </v-card>
@@ -143,6 +135,9 @@
   padding-bottom: 5px;
   color: #ffffff !important;
 }
+.draggable :hover {
+  cursor: move;
+}
 .v-card-content {
   padding: 10px;
 }
@@ -156,6 +151,14 @@
   text-decoration: none;
   color: #ff8f00 !important;
 }
+.align-cross {
+  float: right;
+  margin-top: 4px;
+  margin-right: 4px;
+}
+#groups .align-cross {
+  margin-top: 10px;
+}
 </style>
 
 <script>
@@ -168,6 +171,7 @@ import { defaultRules } from "./defaults/rules";
 import { defaultRunnables } from "./defaults/runnables";
 import { defaultOptions } from "./defaults/options";
 import Group from "./components/Group";
+import draggable from "vuedraggable";
 
 function download(filename, text) {
   var element = document.createElement("a");
@@ -192,7 +196,8 @@ export default {
     SelectOption,
     Rule,
     SelectRule,
-    Group
+    Group,
+    draggable
   },
   created() {
     const GIT_WEBHOOKS_API = process.env.VUE_APP_GIT_WEBHOOKS_API;
@@ -257,11 +262,21 @@ export default {
     optionsConf() {
       return this.$store.state.optionsConf;
     },
-    rulesConf() {
-      return this.$store.state.rulesConf;
+    rulesConf: {
+      get() {
+        return this.$store.state.rulesConf;
+      },
+      set(rules) {
+        this.$store.commit("rulesDraggabled", rules);
+      }
     },
-    groupsConf() {
-      return this.$store.state.groupsConf;
+    groupsConf: {
+      get() {
+        return this.$store.state.groupsConf;
+      },
+      set(groups) {
+        this.$store.commit("groupsDraggabled", groups);
+      }
     },
     optionsAvailable() {
       return this.optionsList.filter(

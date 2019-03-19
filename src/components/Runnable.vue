@@ -1,23 +1,17 @@
 <template>
   <v-card color="t_color">
-    <div class="v-card-title t_color_dark">
+    <div class="v-card-title t_color_dark draggable">
       <h1 class="headline mb-0">
         {{ item.name }}
         <button
           aria-hidden="true"
-          class="v-icon v-icon--link material-icons theme--light"
+          class="v-icon v-icon--link material-icons theme--light align-cross"
           @click="removeRunnable"
-        >
-          clear
-        </button>
+        >clear</button>
       </h1>
     </div>
     <div class="v-card-content">
-      <v-select
-        :items="['onBoth', 'onSuccess', 'onError']"
-        label="Event"
-        @change="setEvent"
-      ></v-select>
+      <v-select :items="['onBoth', 'onSuccess', 'onError']" label="Event" @change="setEvent"></v-select>
 
       <div v-for="(arg, i) in item.args" :key="`runnable-{item.name}-arg-${i}`">
         <v-text-field

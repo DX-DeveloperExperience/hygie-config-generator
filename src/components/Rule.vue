@@ -1,22 +1,17 @@
 <template>
   <v-card color="s_color">
-    <div class="v-card-title s_color_dark fit-width">
+    <div class="v-card-title s_color_dark draggable">
       <h1 class="headline mb-0">
         {{ item.name }}
         <button
           aria-hidden="true"
-          class="v-icon v-icon--link material-icons theme--light"
+          class="v-icon v-icon--link material-icons theme--light align-cross"
           @click="removeRule"
-        >
-          clear
-        </button>
+        >clear</button>
       </h1>
     </div>
     <div class="v-card-content">
-      <div
-        v-for="(option, i) in item.options"
-        :key="`rule-${item.name}-option-${i}`"
-      >
+      <div v-for="(option, i) in item.options" :key="`rule-${item.name}-option-${i}`">
         <v-text-field
           :label="`${option.name}`"
           v-model="option.value"
@@ -26,13 +21,10 @@
 
       <div v-if="displayRunnable">
         <h4>Post-Actions</h4>
-        <SelectRunnable :currentRule="item" />
+        <SelectRunnable :currentRule="item"/>
 
-        <v-flex
-          v-for="(runnable, i) in attachedRunnable"
-          :key="`rule-${item.name}-runnable-${i}`"
-        >
-          <Runnable :item="runnable" :attachedRule="item" />
+        <v-flex v-for="(runnable, i) in attachedRunnable" :key="`rule-${item.name}-runnable-${i}`">
+          <Runnable :item="runnable" :attachedRule="item"/>
         </v-flex>
       </div>
     </div>
