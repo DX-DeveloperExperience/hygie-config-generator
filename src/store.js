@@ -96,7 +96,7 @@ export default new Vuex.Store({
           state.rulesConf.splice(index, 1);
         }
       } else {
-        state.groupsConf.forEach((g, i) => {
+        state.groupsConf.forEach(g => {
           g.rules.forEach((r, i) => {
             if (r.id === rule.id) {
               index = i;
@@ -161,6 +161,7 @@ export default new Vuex.Store({
       let result = '';
       const options = state.optionsConf;
       const rules = state.rulesConf;
+      const groups = state.groupsConf;
 
       // Create Options
       if (options.length > 0) {
@@ -192,6 +193,77 @@ export default new Vuex.Store({
             );
             const onBothRunnables = r.runnables.filter(
               r => r.event === 'onBoth'
+            );
+
+            if (onSuccessRunnables.length > 0) {
+              result += `    onSuccess:\n`;
+              onSuccessRunnables.map(s => {
+                result += `      - callback: ${s.name}\n`;
+                result += `        args:\n`;
+                s.args.map(a => {
+                  if (a.value !== '') {
+                    result += `          ${a.name}: ${a.value}\n`;
+                  }
+                });
+              });
+            }
+            if (onErrorRunnables.length > 0) {
+              result += `    onError:\n`;
+              onErrorRunnables.map(e => {
+                result += `      - callback: ${e.name}\n`;
+                result += `        args:\n`;
+                e.args.map(a => {
+                  if (a.value !== '') {
+                    result += `          ${a.name}: ${a.value}\n`;
+                  }
+                });
+              });
+            }
+            if (onBothRunnables.length > 0) {
+              result += `    onBoth:\n`;
+              onBothRunnables.map(b => {
+                result += `      - callback: ${b.name}\n`;
+                result += `        args:\n`;
+                b.args.map(a => {
+                  if (a.value !== '') {
+                    result += `          ${a.name}: ${a.value}\n`;
+                  }
+                });
+              });
+            }
+          }
+        });
+      }
+
+      // Create Groups
+      if (groups.length > 0) {
+        result += 'groups:\n';
+
+        groups.map(g => {
+          result += `  - groupName: "${g.name}"\n`;
+          if (g.rules.length > 0) {
+            result += `    rules:\n`;
+            g.rules.map(r => {
+              result += `      - name: ${r.name}\n`;
+              if (r.options.length > 0) {
+                result += `        options:\n`;
+                r.options.map(o => {
+                  result += `          ${o.name}: ${o.value ||
+                    ' /!\\ EMPTY /!\\'}\n`;
+                });
+              }
+            });
+          }
+
+          if (g.runnables.length > 0) {
+            const onSuccessRunnables = g.runnables.filter(
+              g => g.event === 'onSuccess'
+            );
+            const onErrorRunnables = g.runnables.filter(
+              g => g.event === 'onError'
+            );
+            const onBothRunnables = g.runnables.filter(
+              g => g.event === 'onBoth'
             );
 
             if (onSuccessRunnables.length > 0) {
