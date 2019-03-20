@@ -9,9 +9,10 @@
           @click="removeRule"
         >clear</button>
       </h1>
-      <p class="rule_tooltip">{{ item.tooltip}}</p>
     </div>
     <div class="v-card-content">
+      <div class="alert alert-info" v-html="displayTooltip()"></div>
+
       <div v-for="(option, i) in item.options" :key="`rule-${item.name}-option-${i}`">
         <v-text-field
           :label="`${option.name}`"
@@ -35,6 +36,7 @@
 <script>
 import SelectRunnable from "./SelectRunnable";
 import Runnable from "./Runnable";
+import * as marked from "marked";
 
 export default {
   components: { SelectRunnable, Runnable },
@@ -45,6 +47,9 @@ export default {
     }
   },
   methods: {
+    displayTooltip() {
+      return marked(this.item.tooltip);
+    },
     updateValue(name, val) {
       this.$store.commit("updateRuleOption", {
         rule: this.item,

@@ -11,6 +11,10 @@
       </h1>
     </div>
     <div class="v-card-content">
+      <div class="alert alert-info" v-html="displayTooltip(item.tooltip)"></div>
+
+      <div class="alert alert-warning" v-if="hasWarn" v-html="displayWarning(item.tooltip)"></div>
+
       <v-select :items="['onBoth', 'onSuccess', 'onError']" label="Event" @change="setEvent"></v-select>
 
       <div v-for="(arg, i) in item.args" :key="`runnable-{item.name}-arg-${i}`">
@@ -25,9 +29,28 @@
 </template>
 
 <script>
+import * as marked from "marked";
+
 export default {
   props: ["item", "attachedRule", "attachedGroup"],
+  computed: {
+    hasWarn() {
+      return this.item.tooltip.indexOf("@warn") > -1;
+    }
+  },
   methods: {
+    displayTooltip(tooltip) {
+      const indexWarn = tooltip.indexOf("@warn");
+      if (indexWarn > -1) {
+        return marked(tooltip.substring(0, indexWarn));
+      }
+      return marked(tooltip);
+    },
+    displayWarning(tooltip) {
+      return marked(
+        tooltip.substring(tooltip.indexOf("@warn")).replace("@warn", "")
+      );
+    },
     updateValue(name, val) {
       this.$store.commit("updateRunnableArg", {
         rule: this.attachedRule,

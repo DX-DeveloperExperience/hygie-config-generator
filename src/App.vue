@@ -106,7 +106,7 @@
             <v-card color="p_color">
               <div class="v-card-title p_color_dark fit-width">
                 <h1 class="headline mb-0">
-                  <i>rules.yml</i> Overview
+                  <em>rules.yml</em>&nbsp;
                   <i class="material-icons">code</i>
                 </h1>
               </div>
@@ -125,7 +125,7 @@
 
 <style lang="scss">
 .material-icons {
-  vertical-align: middle;
+  vertical-align: sub;
 }
 .fit-width {
   width: 100%;
@@ -156,9 +156,6 @@
   margin-top: 4px;
   margin-right: 4px;
 }
-#groups .align-cross {
-  margin-top: 10px;
-}
 .select_tooltip {
   font-size: 0.7em;
 }
@@ -169,6 +166,26 @@
   margin: 0px;
   color: #333 !important;
   font-size: 0.9em;
+}
+
+.alert {
+  position: relative;
+  padding-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert p {
+  margin-bottom: 5px;
+}
+.alert-info {
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+}
+.alert-warning {
+  background-color: #fff3cd;
+  border-color: #ffeeba;
 }
 </style>
 

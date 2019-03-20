@@ -10,6 +10,7 @@
         <button
           aria-hidden="true"
           class="v-icon v-icon--link material-icons theme--light align-cross"
+          style="margin-top: 10px;"
           @click="removeGroup"
         >clear</button>
       </h1>

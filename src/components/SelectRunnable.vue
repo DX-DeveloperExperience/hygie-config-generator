@@ -1,10 +1,23 @@
 <template>
   <v-select
-    :items="runnablesNames"
+    :items="runnablesList"
     label="Add a runnable"
     @change="selectRunnable"
     prepend-icon="loop"
-  ></v-select>
+    item-value="name"
+  >
+    <template v-slot:item="{ item, index }">
+      <div>
+        <p class="select_name">{{ item.name }}</p>
+        <p
+          class="select_tooltip"
+          v-if="(item.tooltip.indexOf('@warn')) > -1"
+        >{{ item.tooltip.substring(0, item.tooltip.indexOf('@warn')) }}</p>
+        <p class="select_tooltip" v-else>{{ item.tooltip }}</p>
+      </div>
+    </template>
+    <template v-slot:selection="{ item, index }">{{ item.name }}</template>
+  </v-select>
 </template>
 
 <script>
@@ -13,9 +26,6 @@ export default {
   computed: {
     runnablesList() {
       return this.$store.state.runnablesList;
-    },
-    runnablesNames() {
-      return this.runnablesList.map(r => r.name);
     }
   },
   methods: {
