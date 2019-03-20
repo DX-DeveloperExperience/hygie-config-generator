@@ -165,6 +165,11 @@
 .select_name {
   margin-bottom: 0px;
 }
+.rule_tooltip {
+  margin: 0px;
+  color: #333 !important;
+  font-size: 0.9em;
+}
 </style>
 
 <script>

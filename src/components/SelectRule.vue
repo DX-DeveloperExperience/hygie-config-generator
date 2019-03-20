@@ -1,10 +1,19 @@
 <template>
   <v-select
-    :items="rulesNames"
+    :items="rulesList"
     label="Add a rule"
     @change="selectRule"
     prepend-icon="ballot"
-  ></v-select>
+    item-value="name"
+  >
+    <template v-slot:item="{ item, index }">
+      <div>
+        <p class="select_name">{{ item.name }}</p>
+        <p class="select_tooltip">{{ item.tooltip }}</p>
+      </div>
+    </template>
+    <template v-slot:selection="{ item, index }">{{ item.name }}</template>
+  </v-select>
 </template>
 
 <script>
@@ -13,9 +22,6 @@ export default {
   computed: {
     rulesList() {
       return this.$store.state.rulesList;
-    },
-    rulesNames() {
-      return this.rulesList.map(r => r.name);
     }
   },
   methods: {

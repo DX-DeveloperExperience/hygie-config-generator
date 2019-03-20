@@ -9,6 +9,7 @@
           @click="removeRule"
         >clear</button>
       </h1>
+      <p class="rule_tooltip">{{ item.tooltip}}</p>
     </div>
     <div class="v-card-content">
       <div v-for="(option, i) in item.options" :key="`rule-${item.name}-option-${i}`">
