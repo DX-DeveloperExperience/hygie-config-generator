@@ -14,4 +14,10 @@ export const defaultOptions = [
     value: true,
     tooltip: 'Specify if groups will be processed',
   },
+  {
+    name: 'allRuleResultInOne',
+    value: false,
+    tooltip:
+      'Specify if execute a runnable only once with the result of all rules',
+  },
 ];
