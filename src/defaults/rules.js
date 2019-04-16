@@ -37,4 +37,42 @@ export const defaultRules = [
     name: 'pullRequestTitle',
     options: [{ name: 'regexp', type: 'string', value: '' }],
   },
+  {
+    tooltip:
+      "`IssueCommentRule` checks the new issue's comment according to a regular expression.",
+    runnables: [],
+    name: 'issueComment',
+    options: [{ name: 'regexp', type: 'string', value: '' }],
+  },
+  {
+    tooltip:
+      "`PullRequestCommentRule` checks the new PR or MR's comment according to a regular expression.",
+    runnables: [],
+    name: 'pullRequestComment',
+    options: [{ name: 'regexp', type: 'string', value: '' }],
+  },
+  {
+    tooltip:
+      "`CheckVulnerabilitiesRule` will check if `package.json` and `package-lock.json` contain vulnerabilities thank's to `npm audit`.",
+    runnables: [],
+    name: 'checkVulnerabilities',
+    options: [
+      { name: 'packageUrl', type: 'string', value: '' },
+      { name: 'packageLockUrl', type: 'string', value: '' },
+    ],
+  },
+  {
+    tooltip:
+      '`CheckAddedFilesRule` checks all added filenames in commits according to a regular expression.',
+    runnables: [],
+    name: 'checkAddedFiles',
+    options: [{ name: 'regexp', type: 'string', value: '' }],
+  },
+  {
+    tooltip:
+      '`CheckPullRequestStatusRule` checks if the Pull Request event matchs.',
+    runnables: [],
+    name: 'checkPullRequestStatus',
+    options: [{ name: 'status', type: 'string', value: '' }],
+  },
 ];

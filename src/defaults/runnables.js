@@ -60,4 +60,60 @@ export const defaultRunnables = [
       { name: 'config', type: 'object', value: '' },
     ],
   },
+  {
+    tooltip: '`DeleteBranchRunnable` delete a particular branch.',
+    name: 'DeleteBranchRunnable',
+    args: [{ name: 'branchName?', type: 'string', value: '' }],
+  },
+  {
+    tooltip:
+      "`UpdateIssueRunnable` update some issue's properties.   @warn Be sure that the rule returned the `issueNumber` property in the `RuleResult` object.",
+    name: 'UpdateIssueRunnable',
+    args: [
+      { name: 'state', type: 'string', value: '' },
+      { name: 'labels', type: 'string[]', value: '' },
+    ],
+  },
+  {
+    tooltip:
+      '`CreateIssueRunnable` create an issue the specified `CreateIssueArgs` params.',
+    name: 'CreateIssueRunnable',
+    args: [
+      { name: 'title', type: 'string', value: '' },
+      { name: 'description', type: 'string', value: '' },
+      { name: 'assignees', type: 'string[]', value: '' },
+      { name: 'labels', type: 'string[]', value: '' },
+    ],
+  },
+  {
+    tooltip: '`DeleteFilesRunnable` delete a set of files.',
+    name: 'DeleteFilesRunnable',
+    args: [
+      { name: 'files', type: 'string[]|string', value: '' },
+      { name: 'message', type: 'string', value: '' },
+      { name: 'branch', type: 'string', value: '' },
+    ],
+  },
+  {
+    tooltip:
+      '`MergePullRequestRunnable` merge the PR or MR processed by the previous rule.   @warn Be sure that the rule returned the `pullRequestNumber` property in the `RuleResult` object.',
+    name: 'MergePullRequestRunnable',
+    args: [
+      { name: 'commitTitle', type: 'string', value: '' },
+      { name: 'commitMessage', type: 'string', value: '' },
+      { name: 'method', type: 'string', value: '' },
+      { name: 'sha', type: 'string', value: '' },
+    ],
+  },
+  {
+    tooltip:
+      "`UpdatePullRequestRunnable` update some PR's properties.   @warn Be sure that the rule returned the `pullRequestNumber` property in the `RuleResult` object.",
+    name: 'UpdatePullRequestRunnable',
+    args: [
+      { name: 'target', type: 'string', value: '' },
+      { name: 'title', type: 'string', value: '' },
+      { name: 'state', type: 'string', value: '' },
+      { name: 'description', type: 'string', value: '' },
+    ],
+  },
 ];
