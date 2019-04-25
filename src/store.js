@@ -188,6 +188,11 @@ export default new Vuex.Store({
 
         rules.map(r => {
           result += `  - name: ${r.name}\n`;
+
+          if (!r.enabled) {
+            result += '    enabled: false\n';
+          }
+
           if (r.options.length > 0) {
             result += `    options:\n`;
             r.options.map(o => {

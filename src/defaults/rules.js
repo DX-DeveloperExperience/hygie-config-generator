@@ -8,6 +8,7 @@ export const defaultRules = [
       { name: 'regexp', type: 'string', value: '' },
       { name: 'maxLength', type: 'number', value: '' },
     ],
+    enabled: true,
   },
   {
     tooltip:
@@ -15,6 +16,7 @@ export const defaultRules = [
     runnables: [],
     name: 'oneCommitPerPR',
     options: [],
+    enabled: true,
   },
   {
     tooltip:
@@ -22,6 +24,7 @@ export const defaultRules = [
     runnables: [],
     name: 'branchName',
     options: [{ name: 'regexp', type: 'string', value: '' }],
+    enabled: true,
   },
   {
     tooltip:
@@ -29,6 +32,7 @@ export const defaultRules = [
     runnables: [],
     name: 'issueTitle',
     options: [{ name: 'regexp', type: 'string', value: '' }],
+    enabled: true,
   },
   {
     tooltip:
@@ -36,6 +40,7 @@ export const defaultRules = [
     runnables: [],
     name: 'pullRequestTitle',
     options: [{ name: 'regexp', type: 'string', value: '' }],
+    enabled: true,
   },
   {
     tooltip:
@@ -43,6 +48,7 @@ export const defaultRules = [
     runnables: [],
     name: 'issueComment',
     options: [{ name: 'regexp', type: 'string', value: '' }],
+    enabled: true,
   },
   {
     tooltip:
@@ -50,6 +56,7 @@ export const defaultRules = [
     runnables: [],
     name: 'pullRequestComment',
     options: [{ name: 'regexp', type: 'string', value: '' }],
+    enabled: true,
   },
   {
     tooltip:
@@ -60,6 +67,7 @@ export const defaultRules = [
       { name: 'packageUrl', type: 'string', value: '' },
       { name: 'packageLockUrl', type: 'string', value: '' },
     ],
+    enabled: true,
   },
   {
     tooltip:
@@ -67,6 +75,7 @@ export const defaultRules = [
     runnables: [],
     name: 'checkAddedFiles',
     options: [{ name: 'regexp', type: 'string', value: '' }],
+    enabled: true,
   },
   {
     tooltip:
@@ -74,5 +83,6 @@ export const defaultRules = [
     runnables: [],
     name: 'checkPullRequestStatus',
     options: [{ name: 'status', type: 'string', value: '' }],
+    enabled: true,
   },
 ];
