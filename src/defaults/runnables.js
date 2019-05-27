@@ -63,7 +63,7 @@ export const defaultRunnables = [
   {
     tooltip: '`DeleteBranchRunnable` delete a particular branch.',
     name: 'DeleteBranchRunnable',
-    args: [{ name: 'branchName?', type: 'string', value: '' }],
+    args: [{ name: 'branchName', type: 'string', value: '' }],
   },
   {
     tooltip:
