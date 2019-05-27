@@ -2,7 +2,7 @@
 
 ## Motivations
 
-This SPA allows you to generate the `rules.yml` config file for your [Git-Webhooks API](https://github.com/DX-DeveloperExperience/git-webhooks) with a friendly user-interface.
+This SPA allows you to generate the `.rulesrc` config file for your [Git-Webhooks API](https://github.com/DX-DeveloperExperience/git-webhooks) with a friendly user-interface.
 
 This application will source every Rules and Runnables you've created in your Git-Webhooks project, and display all of them in the UI.
 

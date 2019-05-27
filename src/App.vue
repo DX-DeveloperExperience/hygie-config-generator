@@ -15,7 +15,7 @@
               <div class="v-card-content justify">
                 <p>
                   This SPA allows you to generate the
-                  <a>rules.yml</a> config file for your
+                  <a>.rulesrc</a> config file for your
                   <a
                     href="https://github.com/DX-DeveloperExperience/git-webhooks"
                   >Git-Webhooks API</a>
@@ -106,7 +106,7 @@
             <v-card color="p_color">
               <div class="v-card-title p_color_dark fit-width">
                 <h1 class="headline mb-0">
-                  <em>rules.yml</em>&nbsp;
+                  <em>.rulesrc</em>&nbsp;
                   <i class="material-icons">code</i>
                 </h1>
               </div>
@@ -231,7 +231,7 @@ export default {
     const GIT_WEBHOOKS_API = process.env.VUE_APP_GIT_WEBHOOKS_API;
 
     axios
-      .get(`${GIT_WEBHOOKS_API}/rules`)
+      .get(`${GIT_WEBHOOKS_API}/doc/rules`)
       .then(response => {
         this.$store.commit("loadRules", response.data);
       })
@@ -241,7 +241,7 @@ export default {
       });
 
     axios
-      .get(`${GIT_WEBHOOKS_API}/runnables`)
+      .get(`${GIT_WEBHOOKS_API}/doc/runnables`)
       .then(response => {
         this.$store.commit("loadRunnables", response.data);
       })
@@ -251,7 +251,7 @@ export default {
       });
 
     axios
-      .get(`${GIT_WEBHOOKS_API}/options`)
+      .get(`${GIT_WEBHOOKS_API}/doc/options`)
       .then(response => {
         this.$store.commit("loadOptions", response.data);
       })
@@ -266,7 +266,7 @@ export default {
     },
     downloadFile() {
       this.generateFile();
-      download("rules.yml", this.configFile);
+      download(".rulesrc", this.configFile);
     },
     addGroup() {
       this.$store.commit("addGroup");
