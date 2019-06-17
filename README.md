@@ -4,7 +4,7 @@
 
 This SPA allows you to generate the `.rulesrc` config file for your [Hygie API](https://github.com/DX-DeveloperExperience/hygie) with a friendly user-interface.
 
-This application will source every Rules and Runnables you've created in your Git-Webhooks project, and display all of them in the UI.
+This application will source every Rules and Runnables you've created in your Hygie project, and display all of them in the UI.
 
 ## Use our online generator
 

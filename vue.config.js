@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: "/git-webhooks-config-generator/"
+  publicPath: '/hygie-config-generator/',
 };

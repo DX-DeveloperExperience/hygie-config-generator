@@ -7,7 +7,7 @@
             <v-card color="p_color">
               <div class="v-card-title p_color_dark fit-width">
                 <h1 class="headline mb-0">
-                  Git-Webhooks-Config-Generator
+                  Hygie-Config-Generator
                   <i class="material-icons">build</i>
                 </h1>
               </div>
@@ -17,14 +17,14 @@
                   This SPA allows you to generate the
                   <a>.rulesrc</a> config file for your
                   <a
-                    href="https://github.com/DX-DeveloperExperience/git-webhooks"
-                  >Git-Webhooks API</a>
+                    href="https://github.com/DX-DeveloperExperience/hygie"
+                  >Hygie API</a>
                   with a friendly user-interface.
                 </p>
                 <p>
                   This application will source every Rules and Runnables you've
-                  created in your Git-Webhooks project, and display all of them
-                  in the UI. If Git-Webhooks project it's not running, the
+                  created in your Hygie project, and display all of them
+                  in the UI. If Hygie project it's not running, the
                   configurator come with default values.
                 </p>
               </div>

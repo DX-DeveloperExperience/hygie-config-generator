@@ -17,6 +17,6 @@ git add -A
 git commit -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f https://www.github.com/DX-DeveloperExperience/git-webhooks-config-generator.git master:gh-pages
+git push -f https://www.github.com/DX-DeveloperExperience/hygie-config-generator.git master:gh-pages
 
 cd -

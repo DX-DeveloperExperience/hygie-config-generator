@@ -1,6 +1,6 @@
 {
-  "name": "git-webhooks-config-generator",
-  "description": "A VueJS SPA to generate the Git-Webhooks .rulesrc file",
+  "name": "hygie-config-generator",
+  "description": "A VueJS SPA to generate the Hygie .rulesrc file",
   "version": "0.1.0",
   "scripts": {
     "serve": "vue-cli-service serve",
