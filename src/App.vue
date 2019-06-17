@@ -228,10 +228,10 @@ export default {
     draggable
   },
   created() {
-    const GIT_WEBHOOKS_API = process.env.VUE_APP_GIT_WEBHOOKS_API;
+    const HYGIE_API = process.env.VUE_APP_HYGIE_API;
 
     axios
-      .get(`${GIT_WEBHOOKS_API}/doc/rules`)
+      .get(`${HYGIE_API}/doc/rules`)
       .then(response => {
         this.$store.commit("loadRules", response.data);
       })
@@ -241,7 +241,7 @@ export default {
       });
 
     axios
-      .get(`${GIT_WEBHOOKS_API}/doc/runnables`)
+      .get(`${HYGIE_API}/doc/runnables`)
       .then(response => {
         this.$store.commit("loadRunnables", response.data);
       })
@@ -251,7 +251,7 @@ export default {
       });
 
     axios
-      .get(`${GIT_WEBHOOKS_API}/doc/options`)
+      .get(`${HYGIE_API}/doc/options`)
       .then(response => {
         this.$store.commit("loadOptions", response.data);
       })
