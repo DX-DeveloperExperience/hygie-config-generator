@@ -26,7 +26,7 @@
     "eslint-plugin-vue": "5.0.0",
     "node-sass": "4.11.0",
     "sass-loader": "7.1.0",
-    "stylus": "0.54.5",
+    "stylus": "0.63.0",
     "stylus-loader": "3.0.2",
     "vue-cli-plugin-vuetify": "0.5.0",
     "vue-template-compiler": "2.6.8",
